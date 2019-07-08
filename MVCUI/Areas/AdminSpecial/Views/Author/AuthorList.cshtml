@@ -1,0 +1,39 @@
+﻿@using GridMvc.Html
+@model List<Author>
+@{
+    ViewBag.Title = "AuthorList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Deneme{
+    @Html.ActionLink("Kategorileri Listele", "CategoryList", "Category", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Kitapları Listele", "BookList", "Book", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Kullanıcıları Listele", "ListAppUsers", "AppUser", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Çıkış Yap", "LogOut", "AppUser", new { area = "AdminSpecial" }, new { @class = "btn btn-success" })
+}
+
+@Html.ActionLink("Yazar Ekle", "AddAuthor", null, new { @class = "btn btn-primary" })
+
+<h2>AuthorList</h2>
+
+<div class="col-md-9">
+    <div class="panel panel-body">
+        @Html.Grid(Model).Columns(c =>
+   {
+
+                 c.Add(ct => ct.Name)
+        .Titled("Yazar İsmi");
+
+                 c.Add(ct => ct.SPName)
+        .Titled("Yazar Soyadı");
+
+                 c.Add().Encoded(false).Sanitized(false).Titled("Güncelle").RenderValueAs(ct => Html.ActionLink("Güncelle", "UpdateAuthor", new { id = ct.ID }, new { @class = "btn btn-warning" }).ToHtmlString());
+
+                 c.Add().Encoded(false).Sanitized(false).Titled("Sil").RenderValueAs(ct => Html.ActionLink("Sil", "DeleteAuthor", new { id = ct.ID }, new { @class = "btn btn-danger" }).ToHtmlString());
+
+             }).WithPaging(15).Sortable(true)
+    </div>
+</div>

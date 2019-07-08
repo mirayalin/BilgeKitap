@@ -1,0 +1,91 @@
+﻿@using GridMvc.Html
+@model List<AppUser>
+@{
+    ViewBag.Title = "ListAppUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Deneme{
+    @Html.ActionLink("Kullanıcı Ekle", "AddAppUser", "AppUser", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Kategori Listele", "CategoryList", "Category", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Kitap Listele", "BookList", "Book", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Yazarları Listele", "AuthorList", "Author", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Çıkış Yap", "LogOut", "AppUser", new { area = "AdminSpecial" }, new { @class = "btn btn-success" })
+
+
+}
+
+<h2>ListAppUsers</h2>
+
+
+<div class="col-md-9">
+    <div class="panel panel-default">
+        <div class="panel panel-body">
+            <!-- #region Eski Usul tablo -->
+            @*<table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Adı</th>
+                            <th>Soyadı</th>
+                            <th>Kullanıcı Doğum Tarihi</th>
+                            <th>Kullanıcı İsmi</th>
+                            <th>EMail</th>
+                            <th>Kullanıcı Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (AppUser item in Model)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.SPName</td>
+                                <td>@item.BirthDate</td>
+                                <td>@item.UserName</td>
+                                <td>@item.Email</td>
+                                <td>@Html.ActionLink("Kullanıcıyı Sil", "DeleteAppUser", new { id = item.ID })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>*@
+
+            <!-- #endregion -->
+
+            @Html.Grid(Model).Columns(c =>
+       {
+           c.Add().Encoded(false).Sanitized(false).Titled("Kullanıcı Resmi").RenderValueAs(ct =>@<img src="@ct.ImagePath" style="width:50px;height:100px" />);
+
+                 c.Add(ct => ct.Name)
+       .Titled("Adı");
+
+                 c.Add(ct => ct.SPName)
+       .Titled("Soyadı");
+
+                 c.Add(ct => ct.BirthDate)
+       .Titled("Kullanıcı Doğum Tarihi");
+
+                 c.Add(ct => ct.UserName)
+.Titled("Kullanıcı İsmi");
+
+                 c.Add(ct => ct.Email)
+.Titled("Email");
+
+                 c.Add().Encoded(false).Sanitized(false).Titled("Kullanıcı Sil").RenderValueAs(ct => Html.ActionLink("Kullanıcıyı Sil", "DeleteAppUser", new { id = ct.ID }, null).ToHtmlString());
+
+             }).WithPaging(5).Sortable(true)
+
+            @{
+                AppUser gelen = Session["admin"] as AppUser;
+
+                @Html.ActionLink("Kullanıcı Ayarları", "AppUserOptions", "AppUser", new { area = "AdminSpecial", id = gelen.ID }, new { @class = "btn btn-primary" });
+            }
+
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,31 @@
+﻿@model Author
+@{
+    ViewBag.Title = "UpdateAuthor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UpdateAuthor</h2>
+
+<div class="col-md-9">
+    @using (Html.BeginForm("UpdateAuthor", "Author", FormMethod.Post))
+    {
+        @Html.HiddenFor(x => x.ID)
+        <div>
+            Yazar Adını Güncelleyin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        </div>
+        <div>
+            Yazar Soyadını Güncelleyin
+        </div>
+        <div>
+            @Html.TextAreaFor(x => x.SPName, new { @class = "form-control" })
+        </div>
+        <div>
+            <button class="btn btn-primary"> Güncelle </button>
+        </div>
+    }
+
+
+</div>

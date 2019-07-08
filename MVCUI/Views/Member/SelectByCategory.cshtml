@@ -1,0 +1,52 @@
+﻿@model Tuple<List<Book>, List<Category>>
+
+
+@section Deneme{
+
+
+    <p class="lead">Bilge Kitap</p>
+    <div class="list-group">
+        @foreach (Category item in Model.Item2)
+        {
+            @Html.ActionLink(item.CategoryName, "SelectByCategory", new { id = item.ID }, new { @class = "list-group-item" })
+        }
+
+
+    </div>
+
+}
+
+@if (TempData["message"] != null)
+{
+    @TempData["message"]
+}
+
+@Html.ActionLink("Sepet Sayfası", "CartPage")
+
+<div class="col-md-9">
+    <div class="row">
+
+        @foreach (Book item in Model.Item1)
+        {
+
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail">
+                    <img src="@item.ImagePath" title="@item.Name" alt="@item.Name.Substring(0,5)" />
+                    <div class="caption">
+                        <h4 class="pull-right">@(Convert.ToInt32(item.UnitPrice).ToString("C2"))</h4>
+                        <h4>
+                            <a href="/Member/BookDetail/@item.ID">@item.Name</a>
+                        </h4>
+                        <p> @Html.ActionLink("Sepete At", "AddToCart", new { id = item.ID })    </p>
+                        <p class="pull-right">Stoktaki Ürün=>  @item.UnitInStock</p>
+
+                    </div>
+                </div>
+            </div>
+
+
+        }
+
+    </div>
+</div>
+

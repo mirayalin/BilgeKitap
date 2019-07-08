@@ -1,0 +1,87 @@
+﻿@model Tuple<Book,List<Category>>
+@{
+    ViewBag.Title = "UpdateBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UpdateBook</h2>
+
+<div class="col-md-9">
+    @using (Html.BeginForm("UpdateBook", "Book", FormMethod.Post))
+    {
+        @Html.HiddenFor(x => x.Item1.ID)
+        @Html.HiddenFor(x => x.Item1.ImagePath)
+        @Html.HiddenFor(x => x.Item1.Name)
+        @Html.HiddenFor(x => x.Item1.SPName)
+        @Html.HiddenFor(x => x.Item1.Author.Name)
+        @Html.HiddenFor(x => x.Item1.Author.SPName)
+        @Html.HiddenFor(x => x.Item1.Publisher)
+        @Html.HiddenFor(x => x.Item1.UnitInStock)
+        @Html.HiddenFor(x => x.Item1.UnitPrice)
+
+
+        <div>Kitabın Resmini Güncelleyin</div>
+        <div><img src="@Model.Item1.ImagePath" style="width:50px;height:100px" /></div>
+        <div>
+            <input type="file" name="resim" />
+        </div>
+
+        <div>
+            Kitap İsmini Güncelleyin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Item1.Name)
+        </div>
+
+        <div>
+            Kitabın Açıklamasını Güncelleyin
+        </div>
+        <div>
+            @Html.TextAreaFor(x => x.Item1.SPName)
+        </div>
+
+        <div>
+            Kitap Yazarının İsmini ve Soyismini Güncelleyin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Item1.Author.Name, "Yazar İsmi Girin") @Html.TextBoxFor(x => x.Item1.Author.SPName, "Yazar Soyismi Girin")
+        </div>
+
+        <div>
+            Yayınevini güncelleyin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Item1.Publisher)
+        </div>
+
+        <div>
+            Kategorisini Güncelleyin
+        </div>
+        <div>
+            @Html.DropDownListFor(x => x.Item1.CategoryID, new SelectList(Model.Item2, "ID", "CategoryName"), "Kategori Seçin")
+        </div>
+
+        <div>
+            Fiyatı Güncelleyin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Item1.UnitPrice)
+        </div>
+
+
+        <div>
+            Stok Adedini güncelleyin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Item1.UnitInStock)
+        </div>
+
+        <div>
+            <button class="btn btn-success">Güncelle</button>
+        </div>
+
+
+    }
+
+
+</div>

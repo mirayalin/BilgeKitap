@@ -1,0 +1,103 @@
+﻿@using GridMvc.Html
+@model List<Book>
+@{
+    ViewBag.Title = "BookList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Deneme{
+    @Html.ActionLink("Kategorileri Listele", "CategoryList", "Category", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Yazarları Listele", "AuthorList", "Author", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Kullanıcıları Listele", "ListAppUsers", "AppUser", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Çıkış Yap", "LogOut", "AppUser", new { area = "AdminSpecial" }, new { @class = "btn btn-success" })
+}
+
+@Html.ActionLink("Kitap Ekle", "AddBook", null, new { @class = "btn btn-primary" })
+
+<h2>BookList</h2>
+
+<div class="col-md-9">
+
+    <div class="panel panel-body">
+        <!-- #region Eski Usul Tablo -->
+        @*<table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Kitap Resmi</th>
+                        <th>Kitap İsmi</th>
+                        <th>Kitap Açıklaması</th>
+                        <th>Kitap Yazarı</th>
+                        <th>Yayın Evi</th>
+                        <th>Fiyatı</th>
+                        <th>Stok Adedi</th>
+                        <th>Güncelle</th>
+                        <th>Sil  </th>
+                        <th>Urun Detay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Book item in Model)
+                    {
+                    <tr>
+                        <td><img src="@item.ImagePath" style="width:50px;height:100px"/></td>
+                        <td>@item.Name</td>
+                        <td>@item.SPName</td>
+                        @if (item.Author == null)
+                        {
+                            <td>Belirtilmemiş</td>
+                        }
+                        else
+                        {
+                            <td>@item.Author.Name @item.Author.SPName</td>
+                        }
+                        <td>@item.Publisher</td>
+                        <td>@item.UnitPrice</td>
+                        <td>@item.UnitInStock</td>
+                        <td>@Html.ActionLink("Güncelle", "UpdateBook", new { id = item.ID }, new { @class = "btn btn-warning" })</td>
+                        <td>@Html.ActionLink("Sil", "DeleteBook", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
+                        <td>@Html.ActionLink("Detay", "BookDetail", new { id = item.ID }, new { @class = "btn btn-success" })</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>*@
+
+        <!-- #endregion -->
+
+        @Html.Grid(Model).Columns(c =>
+   {
+   c.Add().Encoded(false).Sanitized(false).Titled("Kitap Resmi").RenderValueAs(ct =>@<img src="@ct.ImagePath" style="width:50px;height:100px" />);
+
+                 c.Add(ct => ct.Name)
+        .Titled("Kitap İsmi");
+
+                 c.Add(ct => ct.SPName)
+        .Titled("Kitap Açıklaması");
+
+                 c.Add(ct => ct.Author.Name)
+        .Titled("Yazar Adı");
+
+                 c.Add(ct => ct.Author.SPName)
+.Titled("Yazar Soyadı");
+
+                 c.Add(ct => ct.Publisher)
+.Titled("Yayıevi");
+
+                 c.Add(ct => ct.UnitPrice)
+.Titled("Fiyatı");
+
+                 c.Add(ct => ct.UnitInStock)
+.Titled("Stok Adedi");
+
+                 c.Add().Encoded(false).Sanitized(false).Titled("Güncelle").RenderValueAs(ct => Html.ActionLink("Güncelle", "UpdateBook", new { id = ct.ID }, new { @class = "btn btn-warning" }).ToHtmlString());
+
+                 c.Add().Encoded(false).Sanitized(false).Titled("Sil").RenderValueAs(ct => Html.ActionLink("Sil", "DeleteBook", new { id = ct.ID }, new { @class = "btn btn-danger" }).ToHtmlString());
+
+                 c.Add().Encoded(false).Sanitized(false).Titled("Detay").RenderValueAs(ct => Html.ActionLink("Detay", "BookDetail", new { id = ct.ID }, new { @class = "btn btn-success" }).ToHtmlString());
+
+             }).WithPaging(15).Sortable(true)
+    </div>
+
+</div>

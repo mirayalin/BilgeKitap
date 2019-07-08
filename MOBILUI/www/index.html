@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!--
+        Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
+        For details, see http://go.microsoft.com/fwlink/?LinkID=617521
+    -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>AppUser</title>
+    <script src="../Scripts/jquery-3.3.1.js"></script>
+</head>
+<body>
+
+    <a href="kullaniciAyar.html">Kullanıcı Ayar Sayfasına Git</a>
+
+    <div>
+        <div>
+            <input type="text" id="txtID" placeholder="Kullanıcı ID'si giriniz" />
+        </div>
+
+        <div>
+            <input type="text" id="txtName" placeholder="Kullanıcının ismi giriniz" />
+
+        </div>
+
+        <div>
+            <input type="text" id="txtLastName" placeholder="Kullanıcının soyismi giriniz" />
+        </div>
+
+        <div>
+            <input type="button" value="Listele" id="ListAppUser" />
+        </div>
+
+        <table id="tab1">
+            <thead>
+                <tr>
+                    <th>Kullanıcı ID'si</th>
+                    <th>Kullanıcı İsmi</th>
+                    <th>Kullanıcı Soyismi</th>
+                    <th>Kullanıcı Adı</th>
+                    <th>Kullanıcı Adresi</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+
+    <script>
+        //http://localhost:57462/
+
+        function VeriGetir(gelecekVeri) {
+            $("#tab1").find("tr:gt(0)").remove();
+
+            $.each(gelecekVeri, function (key, data) {
+                $("#tab1").append("<tbody><tr><td>" + data.ID + "</td><td>" + data.Name + "</td><td>" + data.SPName + "</td><td>" + data.UserName + "</td><td>" + data.Address + "</td></tr></tbody>");
+            })
+        }
+
+        $(function () {
+            $("#ListAppUser").click(function () {
+                $.ajax({
+                    url: "http://localhost:57462/api/APIAppUser/KullanicilariGetir",
+                    type: "Get",
+                    success: function (data) {
+                        VeriGetir(data);
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

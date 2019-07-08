@@ -1,0 +1,71 @@
+﻿@model Book
+@{
+    ViewBag.Title = "BookDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Deneme{
+    @Html.ActionLink("Kategoriler", "CategoryList", "Category", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Book", "BookList", "Book", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Profiller", "ListAppUsers", "AppUser", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Kargocular", "ShipperList", "Shipper", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+}
+
+<h2>BookDetail</h2>
+
+<div class="col-md-9">
+
+    <div class="panel panel-default">
+
+        <div class="panel panel-primary">
+            <div>
+                <img src="@Model.ImagePath" style="width:300px;height:150px" />
+            </div>
+            <div>
+                Kitap İsmi => <span>  @Model.Name      </span>
+            </div>
+
+
+            <div>
+                Kitap Açıklaması =>   <span>@Model.SPName     </span>
+            </div>
+
+            <div>
+                Kitap Yazarı => <span>   @Model.Author.Name @Model.Author.SPName    </span>
+            </div>
+
+            <div>
+                Yayınevi => <span>   @Model.Publisher    </span>
+            </div>
+
+            <div>
+                Fiyatı => <span>   @Model.UnitPrice    </span>
+            </div>
+
+            <div>
+                Stok  => <span>   @Model.UnitInStock    </span>
+            </div>
+
+
+            <div>
+                @if (Model.Category != null)
+                {
+                    @:Kategorisi =><span> @Model.Category.CategoryName    </span>
+                }
+                else
+                {
+                    <span>   Belirtilmemiş     </span>
+                }
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>

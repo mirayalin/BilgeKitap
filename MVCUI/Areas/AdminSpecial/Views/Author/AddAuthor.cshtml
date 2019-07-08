@@ -1,0 +1,33 @@
+﻿@model Author
+@{
+    ViewBag.Title = "AddAuthor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddAuthor</h2>
+
+<div class="col-md-9">
+    @using (Html.BeginForm("AddAuthor", "Author", FormMethod.Post))
+    {
+        <div>
+            Yazarın Adını Girin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        </div>
+        <div>
+            Yazarın Soyadını Girin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.SPName, new { @class = "form-control" })
+        </div>
+
+
+
+        <div>
+            <button class="btn btn-primary"> Ekle </button>
+        </div>
+    }
+
+
+</div>

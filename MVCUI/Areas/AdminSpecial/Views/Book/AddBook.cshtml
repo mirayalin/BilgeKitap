@@ -1,0 +1,61 @@
+﻿@model Tuple<Book,List<Category>>
+@{
+    ViewBag.Title = "AddBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-9">
+    @using (Html.BeginForm("AddBook", "Book", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            Kitap İsmi Giriniz
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Item1.Name, new { @class = "form-control" })
+        </div>
+        <div>
+            Kitabın Açıklaması
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Item1.SPName, new { @class = "form-control" })
+        </div>
+
+        <div>
+            Fiyat Giriniz
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Item1.UnitPrice, new { @class = "form-control" })
+        </div>
+
+        <div>
+            Stok Adedi Giriniz
+        </div>
+        <div>
+            @Html.TextBoxFor(x=>x.Item1.UnitInStock)
+        </div>
+
+        <div>
+            Kategorisini Seçin
+        </div>
+        <div>
+            @Html.DropDownListFor(x=>x.Item1.CategoryID,new SelectList(Model.Item2,"ID","CategoryName"),"Kategori Seçin")
+        </div>
+
+        <div>
+            Kitap Resmini Seciniz
+        </div>
+
+        <div>
+            <input type="file" name="resim" />
+        </div>
+
+
+
+        <div>
+            <button class="btn btn-primary"> Ekle </button>
+        </div>
+    }
+
+
+</div>
+

@@ -1,0 +1,104 @@
+﻿@model AppUser
+@{
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddAppUser</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("AddAppUser", "AppUser", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            Profil Resmi Girin
+        </div>
+        <div>
+            <input type="file" name="resim" />
+        </div>
+
+        <div>
+            İsim Giriniz
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+
+        <div>
+            Soyisim Giriniz
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.SPName)
+            @Html.ValidationMessageFor(x => x.SPName)
+        </div>
+
+        <div>
+            Doğum tarihi giriniz
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.BirthDate, new { data_format = "dd/MM/yyyy" })
+        </div>
+
+        <div>
+            Kullanıcı İsmi Giriniz
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.UserName)
+            @Html.ValidationMessageFor(x => x.UserName)
+        </div>
+
+        <div>
+            E-Posta Girin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Email)
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+
+        <div>
+            Şifre Girin
+        </div>
+        <div>
+            @Html.PasswordFor(x => x.Password)
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+
+        <div>
+            Şifreyi Tekrar Girin
+        </div>
+        <div>
+            @Html.PasswordFor(x => x.RePassword)
+            @Html.ValidationMessageFor(x => x.RePassword)
+        </div>
+
+        <div>
+            Rol Girin
+        </div>
+        <div>
+            @Html.EnumDropDownListFor(x => x.Role)
+        </div>
+
+        <div>
+            <button class="btn btn-success">Kullanıcı Kaydet</button>
+        </div>
+
+    }
+</body>
+</html>
+

@@ -1,0 +1,102 @@
+﻿@model AppUser
+@{
+
+    Layout = null;
+}
+<h2></h2>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AppUserOptions</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    @*<script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>*@
+
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("AppUserOptions", "AppUser", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(x => x.ID)
+        @Html.HiddenFor(x => x.BirthDate)
+        @Html.HiddenFor(x => x.Role)
+        @Html.HiddenFor(x => x.ImagePath)
+        @Html.HiddenFor(x=>x.Password)
+        @Html.HiddenFor(x=>x.RePassword)
+        @Html.HiddenFor(x=>x.IsActive)
+
+        <div>
+            <img src="@Model.ImagePath" style="width:150px;height:180px" />
+            <div>
+                Kullanıcı Resmi Ekleyin
+            </div>
+
+            <div>
+                <input type="file" name="resim" />
+            </div>
+        </div>
+
+
+        <div>
+            İsminizi Güncelleyin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Name)
+        </div>
+
+        <div>
+            Soyisminizi Güncelleyin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.SPName)
+        </div>
+
+        <div>
+            Adresinizi Güncelleyin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Address)
+        </div>
+
+        <div>
+            Kullanıcı Adınızı Güncelleyin
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.UserName)<br />
+            @Html.ValidationMessageFor(x => x.UserName)
+        </div>
+
+        <div>
+            E-Posta adresinizi güncelleyin
+        </div>
+
+        <div>
+            @Html.TextBoxFor(x => x.Email)<br />
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+
+
+
+
+        <div>
+            <button class="btn btn-success">Ayarları Kaydet</button>
+        </div>
+
+            AppUser gelen = Session["admin"] as AppUser;
+            
+
+            @Html.ActionLink("Şifre Değiştir", "ChangePassword", "AppUser", new { area = "AdminSpecial", id = gelen.ID }, new { @class = "btn btn-default" })
+        
+
+    }
+
+</body>
+</html>

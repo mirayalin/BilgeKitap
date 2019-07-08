@@ -1,0 +1,67 @@
+﻿@using GridMvc.Html
+@model List<Category>
+@{
+    ViewBag.Title = "CategoryList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CategoryList</h2>
+
+@section Deneme{
+    @Html.ActionLink("Yazarları Listele", "AuthorList", "Author", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Kitapları Listele", "BookList", "Book", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Kullanıcıları Listele", "ListAppUsers", "AppUser", new { area = "AdminSpecial" }, new { @class = "list-group-item" })
+
+    @Html.ActionLink("Çıkış Yap", "LogOut", "AppUser", new { area = "AdminSpecial" }, new { @class = "btn btn-success" })
+
+}
+
+@Html.ActionLink("Kategori Ekle", "AddCategory", null, new { @class = "btn btn-primary" })
+
+<div class="col-md-9">
+
+    <div class="panel panel-body">
+        <!-- #region Eski Usul Tablo -->
+        @*<table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> Kategori İsmi</th>
+                        <th>Kategori Acıklaması</th>
+                        <th> Güncelle</th>
+                        <th>Sil  </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Category item in Model)
+                    {
+                        <tr>
+                            <td>@item.CategoryName</td>
+                            <td>@item.Description</td>
+                            <td>@Html.ActionLink("Güncelle", "UpdateCategory", new { id = item.ID }, new { @class = "btn btn-warning" })</td>
+                            <td>@Html.ActionLink("Sil", "DeleteCategory", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>*@
+
+        <!-- #endregion -->
+
+        @Html.Grid(Model).Columns(c =>
+   {
+       c.Add(ct => ct.CategoryName)
+       .Titled("Kategori İsmi");
+
+       c.Add(ct => ct.Description)
+       .Titled("Kategori Açıklaması");
+
+       c.Add().Encoded(false).Sanitized(false).Titled("Güncelle").RenderValueAs(ct => Html.ActionLink("Güncelle", "UpdateCategory", new { id = ct.ID }, new { @class = "btn btn-warning" }).ToHtmlString());
+
+       c.Add().Encoded(false).Sanitized(false).Titled("Sil").RenderValueAs(ct => Html.ActionLink("Sil", "DeleteCategory", new { id = ct.ID }, new { @class = "btn btn-danger" }).ToHtmlString());
+
+   }).WithPaging(10).Sortable(true)
+
+    </div>
+
+</div>

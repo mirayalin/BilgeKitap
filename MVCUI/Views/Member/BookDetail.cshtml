@@ -1,0 +1,75 @@
+﻿@model Tuple<List<Category>, Book>
+@{
+    ViewBag.Title = "BookDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Deneme{
+
+
+    <p class="lead">Bilge Kitap</p>
+    <div class="list-group">
+        @foreach (Category item in Model.Item1)
+        {
+            @Html.ActionLink(item.CategoryName, "SelectByCategory", new { id = item.ID }, new { @class = "list-group-item" })
+        }
+
+
+    </div>
+
+}
+
+    <div class="col-md-9">
+
+        <div class="panel panel-default">
+
+            <div class="panel panel-primary">
+                <div>
+                    <img src="@Model.Item2.ImagePath" style="width:300px;height:150px" />
+                </div>
+                <div>
+                    Kitap İsmi => <span>  @Model.Item2.Name      </span>
+                </div>
+
+
+                <div>
+                    Kitap Açıklaması =>   <span>@Model.Item2.SPName     </span>
+                </div>
+
+                <div>
+                    Kitap Yazarı => <span>   @Model.Item2.Author.Name @Model.Item2.Author.SPName    </span>
+                </div>
+
+                <div>
+                    Yayınevi => <span>   @Model.Item2.Publisher    </span>
+                </div>
+
+                <div>
+                    Fiyatı => <span>   @Model.Item2.UnitPrice    </span>
+                </div>
+
+                <div>
+                    Stok  => <span>   @Model.Item2.UnitInStock    </span>
+                </div>
+
+
+                <div>
+                    @if (Model.Item2.Category != null)
+                    {
+                        @:Kategorisi =><span> @Model.Item2.Category.CategoryName    </span>
+                    }
+                    else
+                    {
+                        <span>   Belirtilmemiş     </span>
+                    }
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
